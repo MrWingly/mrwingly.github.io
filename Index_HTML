@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matthew Leung | 3D Character Generalist</title>
+<meta name="description" content="Matthew Leung is a 3D Character Generalist who is always looking to improve and make cool art.">
+<meta property="og:title" content="Matthew Leung | 3D Character Generalist">
+<meta property="og:description" content="Matthew Leung is a 3D Character Generalist who is always looking to improve and make cool art.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14171b;
+    --panel: #1d2127;
+    --line: #333a43;
+    --text: #e8ebee;
+    --muted: #98a1ab;
+    --accent: #8fd9c3;
+    --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.55;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Header */
+  header {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 1rem 2rem; padding: 1.6rem clamp(1.2rem, 4vw, 3.5rem);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: block; }
+  .brand b {
+    display: block; font-stretch: 125%; font-weight: 800; font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+    letter-spacing: .02em; line-height: 1;
+  }
+  .brand span { display: block; margin-top: .35rem; color: var(--muted); font-stretch: 100%; font-weight: 400; letter-spacing: .12em; font-size: .85rem; }
+  nav { display: flex; flex-wrap: wrap; gap: .4rem 1.8rem; align-items: baseline; }
+  nav a, .has-sub > button {
+    font: inherit; font-size: .95rem; font-weight: 500; letter-spacing: .08em; color: var(--muted);
+    background: none; border: 0; cursor: pointer; padding: .3rem 0; border-bottom: 2px solid transparent;
+  }
+  nav a:hover, .has-sub > button:hover, nav a[aria-current="page"], .has-sub.active > button { color: var(--text); border-bottom-color: var(--accent); }
+  .has-sub { position: relative; }
+  .sub {
+    display: none; position: absolute; top: 100%; left: -1rem; min-width: 13rem; z-index: 5;
+    background: var(--panel); border: 1px solid var(--line); padding: .6rem 1rem;
+  }
+  .has-sub:hover .sub, .has-sub:focus-within .sub, .has-sub.open .sub { display: grid; gap: .2rem; }
+
+  /* Main */
+  main { flex: 1; padding: clamp(1.5rem, 4vw, 3.5rem); max-width: 1200px; width: 100%; margin: 0 auto; }
+  h1, h2 { font-stretch: 112%; font-weight: 700; letter-spacing: .02em; }
+  h1 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 1.5rem; }
+  .tabs { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+  .tabs a { padding: .6rem 0; color: var(--muted); font-weight: 500; letter-spacing: .06em; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tabs a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* Video slot (16:9) */
+  .video {
+    position: relative; aspect-ratio: 16 / 9; width: 100%; background: var(--panel); border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .slot {
+    display: grid; place-items: center; text-align: center; padding: 1.5rem; color: var(--muted);
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
+      var(--panel);
+  }
+  .slot p { background: var(--panel); padding: .6rem 1rem; border: 1px dashed var(--line); font-size: .92rem; }
+
+  /* Gallery */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .tile { margin: 0; }
+  .tile .slot, .tile img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; border: 1px solid var(--line); display: grid; }
+  .tile figcaption { margin-top: .5rem; font-size: .92rem; color: var(--muted); }
+
+  /* Text pages */
+  .prose { max-width: 62ch; }
+  .prose p + p { margin-top: 1rem; }
+  .prose a, .links a { border-bottom: 1px solid var(--accent); }
+  .links { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; }
+  ul.press { list-style: none; display: grid; gap: .8rem; max-width: 62ch; }
+  ul.press li { padding: .9rem 1rem; background: var(--panel); border: 1px solid var(--line); }
+  .empty { color: var(--muted); }
+
+  footer {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 2rem;
+    padding: 1.6rem clamp(1.2rem, 4vw, 3.5rem); border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem;
+  }
+  footer a:hover { color: var(--text); }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  @media (max-width: 640px) { nav { gap: .2rem 1.2rem; } .sub { position: static; border: 0; padding: .2rem 0 .2rem 1rem; background: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="#reels"><b>MATTHEW LEUNG</b><span>3D CHARACTER GENERALIST</span></a>
+  <nav aria-label="Main">
+    <a href="#reels" data-route="reels animation">DEMO REELS</a>
+    <div class="has-sub" id="art-menu">
+      <button type="button" aria-haspopup="true">ART</button>
+      <div class="sub">
+        <a href="#2d-art" data-route="2d-art">2D ART</a>
+        <a href="#vfx" data-route="vfx">VFX / LIVE ACTION</a>
+        <a href="#group" data-route="group">GROUP PROJECTS</a>
+      </div>
+    </div>
+    <a href="#press" data-route="press">PRESS</a>
+    <a href="https://drive.google.com/file/d/1ztSku5uVoZhWsuDYdQjVYraAzYd8j8Fa/view?usp=sharing" target="_blank" rel="noopener">RESUME</a>
+    <a href="#about" data-route="about">ABOUT</a>
+  </nav>
+</header>
+
+<main id="view" tabindex="-1"></main>
+
+<footer>
+  <a href="mailto:mattleung27@gmail.com">MATTLEUNG27@GMAIL.COM</a>
+  <span>
+    <a href="https://www.linkedin.com/in/mrwingly/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;
+    <a href="https://www.instagram.com/_mrwingly_/" target="_blank" rel="noopener">Instagram</a>
+  </span>
+</footer>
+
+<script>
+/* ============================================================
+   EDIT YOUR CONTENT HERE
+   - video: paste an embed URL, e.g.
+       YouTube: https://www.youtube.com/embed/VIDEO_ID
+       Vimeo:   https://player.vimeo.com/video/VIDEO_ID
+   - images: put image files in an /images folder and list them
+       as { src: "images/character1.jpg", caption: "Title" }
+   ============================================================ */
+const SITE = {
+  reels: { title: "3D CHARACTER ART REEL", video: "" },
+  animation: { title: "ANIMATION REEL", video: "" },
+  "2d-art": { title: "2D ART", images: [] },
+  vfx: { title: "VFX / LIVE ACTION", images: [], video: "" },
+  group: { title: "GROUP PROJECTS", images: [] },
+  press: { title: "PRESS", items: [] },
+  about: {
+    title: "ABOUT",
+    paragraphs: [
+      "Matthew Leung is a 3D Character Generalist who is always looking to improve and make cool art.",
+      "Replace this text with your own bio."
+    ]
+  }
+};
+
+const view = document.getElementById("view");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+const videoBlock = (url, label) => url
+  ? `<div class="video"><iframe src="${esc(url)}" title="${esc(label)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`
+  : `<div class="video slot"><p>Add your video link for “${esc(label)}” in the SITE settings.</p></div>`;
+
+const gallery = images => images.length
+  ? `<div class="grid">${images.map(i => `<figure class="tile"><img src="${esc(i.src)}" alt="${esc(i.caption || "")}" loading="lazy">${i.caption ? `<figcaption>${esc(i.caption)}</figcaption>` : ""}</figure>`).join("")}</div>`
+  : `<div class="grid">${Array.from({length: 6}, () => `<figure class="tile"><div class="slot"><p>Add an image</p></div></figure>`).join("")}</div>`;
+
+const routes = {
+  reels: () => reelPage("reels"),
+  animation: () => reelPage("animation"),
+  "2d-art": () => pageWith("2d-art", gallery(SITE["2d-art"].images)),
+  vfx: () => pageWith("vfx", (SITE.vfx.video ? videoBlock(SITE.vfx.video, "VFX / Live Action") + "<br>" : "") + gallery(SITE.vfx.images)),
+  group: () => pageWith("group", gallery(SITE.group.images)),
+  press: () => pageWith("press", SITE.press.items.length
+    ? `<ul class="press">${SITE.press.items.map(p => `<li><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></li>`).join("")}</ul>`
+    : `<p class="empty">Press features will appear here.</p>`),
+  about: () => pageWith("about",
+    `<div class="prose">${SITE.about.paragraphs.map(p => `<p>${esc(p)}</p>`).join("")}</div>
+     <div class="links">
+       <a href="mailto:mattleung27@gmail.com">mattleung27@gmail.com</a>
+       <a href="https://www.linkedin.com/in/mrwingly/" target="_blank" rel="noopener">LinkedIn</a>
+       <a href="https://www.instagram.com/_mrwingly_/" target="_blank" rel="noopener">Instagram</a>
+     </div>`)
+};
+
+function pageWith(key, body) { return `<h1>${esc(SITE[key].title)}</h1>${body}`; }
+
+function reelPage(active) {
+  const tab = (k, label) => `<a href="#${k}" ${active === k ? 'aria-current="page"' : ""}>${label}</a>`;
+  return `<div class="tabs">${tab("reels", "3D CHARACTER ART REEL")}${tab("animation", "ANIMATION REEL")}</div>
+          ${videoBlock(SITE[active].video, SITE[active].title)}`;
+}
+
+function render() {
+  const key = (location.hash || "#reels").slice(1);
+  const route = routes[key] ? key : "reels";
+  view.innerHTML = routes[route]();
+  document.title = (route === "reels" ? "" : SITE[route].title + " | ") + "Matthew Leung | 3D Character Generalist";
+
+  document.querySelectorAll("[data-route]").forEach(a => {
+    const on = a.dataset.route.split(" ").includes(route);
+    on ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
+  });
+  document.getElementById("art-menu").classList.toggle("active", ["2d-art", "vfx", "group"].includes(route));
+  window.scrollTo(0, 0);
+}
+
+document.querySelector("#art-menu > button").addEventListener("click", e => {
+  e.currentTarget.parentElement.classList.toggle("open");
+});
+window.addEventListener("hashchange", render);
+render();
+</script>
+</body>
+</html>
